@@ -16,6 +16,9 @@ Started: Tue 24 Mar 2026 20:49:25 PDT
 - Make seed functions idempotent by checking for existing records before creating (query by unique field like `alt` or `title`)
 - Programs schedule array entries have per-entry `registrationUrl` fields (each session links to its own LoveMyClub event)
 - Registration URLs use full HTTPS URLs: `https://www.okmissiontennis.org/ClubMember/ClubEvent?ID={GUID}`
+- Frontend components go in `src/app/(frontend)/components/` — client components use `'use client'` directive
+- Layout fetches siteSettings server-side via `getPayload({ config })` + `payload.findGlobal()` and passes data as props to client components
+- Use `lg:` breakpoint to toggle between mobile and desktop nav layouts
 
 ---
 
@@ -105,4 +108,23 @@ Started: Tue 24 Mar 2026 20:49:25 PDT
   - Sponsors without an explicit tier in the source data are assigned 'supporter' tier
   - Programs use `slug` for idempotency check (unique field), while tournaments and sponsors use `name`
   - All registration URLs follow pattern: `https://www.okmissiontennis.org/ClubMember/ClubEvent?ID={GUID}`
+---
+
+## 2026-03-24 - US-008
+- Created responsive Header component with full navigation
+- Header fetches siteSettings (logo, clubName, lovemyclubBaseUrl) from PayloadCMS in the server layout
+- Desktop: sticky header with logo, club name, nav links, Programs dropdown (hover), Member Login link, Book a Court CTA button
+- Mobile: hamburger menu with all nav links, Programs expandable section (tap), Member Login + Book a Court CTAs
+- Programs dropdown shows Kids, Girls In Tennis, Wheelchair Tennis, Adults sub-links
+- Book a Court links to LoveMyClub /ClubMember/BookingCalendar (target=_blank, rel=noopener)
+- Member Login links to LoveMyClub /ClubMember/Login (target=_blank, rel=noopener)
+- Header uses fixed positioning with scroll shadow effect
+- Main content has pt-[72px] to offset fixed header
+- Files changed: src/app/(frontend)/components/Header.tsx (new), src/app/(frontend)/layout.tsx
+- **Learnings for future iterations:**
+  - Frontend layout fetches siteSettings via `getPayload({ config })` + `payload.findGlobal({ slug: 'site-settings' })` — this is a server component pattern
+  - Header is a client component ('use client') for scroll/toggle state; settings are passed as props from the server layout
+  - Use Tailwind `group` + `group-hover:visible` for CSS-only hover dropdowns (no JS needed for desktop)
+  - `lg:` breakpoint used to switch between mobile hamburger and desktop nav
+  - Media URLs from PayloadCMS come as relative paths (e.g., `/api/media/file/logo.jpg`) — Next.js Image component handles them
 ---
