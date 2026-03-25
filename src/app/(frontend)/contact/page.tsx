@@ -1,7 +1,18 @@
 import React from 'react'
+import type { Metadata } from 'next'
 import Image from 'next/image'
 import { getPayload } from 'payload'
 import config from '@payload-config'
+
+export const metadata: Metadata = {
+  title: 'Contact',
+  description:
+    'Contact OK Mission Tennis Club — 4409 Lakeshore Road, Kelowna, BC. Phone: 250-764-7477. Email: info@okmissiontennis.org.',
+  openGraph: {
+    title: 'Contact | OK Mission Tennis Club',
+    description: 'Get in touch with OK Mission Tennis Club in Kelowna, BC.',
+  },
+}
 
 export default async function ContactPage() {
   const payload = await getPayload({ config })

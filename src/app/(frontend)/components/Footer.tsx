@@ -58,7 +58,7 @@ export function Footer({ settings }: { settings: FooterSettings }) {
           </div>
 
           {/* Navigation */}
-          <div>
+          <nav aria-label="Footer navigation">
             <h3 className="mb-4 text-lg font-semibold text-white">Navigation</h3>
             <ul className="space-y-2">
               {navLinks.map((link) => (
@@ -72,7 +72,7 @@ export function Footer({ settings }: { settings: FooterSettings }) {
                 </li>
               ))}
             </ul>
-          </div>
+          </nav>
 
           {/* Quick Links */}
           <div>

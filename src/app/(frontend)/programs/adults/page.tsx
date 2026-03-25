@@ -1,7 +1,18 @@
 import React from 'react'
+import type { Metadata } from 'next'
 import { getPayload } from 'payload'
 import config from '@payload-config'
 import { RichText } from '@payloadcms/richtext-lexical/react'
+
+export const metadata: Metadata = {
+  title: 'Adult Lessons',
+  description:
+    'Adult tennis lessons at OK Mission Tennis Club — beginner to advanced intermediate (NTRP 1.0-3.5+) group lessons in Kelowna, BC.',
+  openGraph: {
+    title: 'Adult Lessons | OK Mission Tennis Club',
+    description: 'Group tennis lessons for all adult skill levels.',
+  },
+}
 
 export default async function AdultsPage() {
   const payload = await getPayload({ config })

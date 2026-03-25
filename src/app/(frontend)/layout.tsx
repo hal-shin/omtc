@@ -7,8 +7,20 @@ import { Header } from './components/Header'
 import { Footer } from './components/Footer'
 
 export const metadata: Metadata = {
-  description: 'OK Mission Tennis Club - Kelowna, BC',
-  title: 'OK Mission Tennis Club',
+  title: {
+    default: 'OK Mission Tennis Club',
+    template: '%s | OK Mission Tennis Club',
+  },
+  description:
+    'OK Mission Tennis Club — 6 outdoor courts in Kelowna, BC. Programs for kids, adults, girls, and wheelchair tennis. Over 100 years of community tennis.',
+  openGraph: {
+    type: 'website',
+    locale: 'en_CA',
+    siteName: 'OK Mission Tennis Club',
+    title: 'OK Mission Tennis Club',
+    description:
+      'OK Mission Tennis Club — 6 outdoor courts in Kelowna, BC. Programs for kids, adults, girls, and wheelchair tennis. Over 100 years of community tennis.',
+  },
 }
 
 export default async function RootLayout(props: { children: React.ReactNode }) {

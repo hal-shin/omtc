@@ -1,7 +1,18 @@
 import React from 'react'
+import type { Metadata } from 'next'
 import { getPayload } from 'payload'
 import config from '@payload-config'
 import { RichText } from '@payloadcms/richtext-lexical/react'
+
+export const metadata: Metadata = {
+  title: 'Girls In Tennis',
+  description:
+    'Girls In Tennis program at OK Mission Tennis Club — led by girls for girls, with U10 and U16 sessions in Kelowna, BC.',
+  openGraph: {
+    title: 'Girls In Tennis | OK Mission Tennis Club',
+    description: 'A tennis program led by girls for girls — U10 and U16 sessions.',
+  },
+}
 
 export default async function GirlsPage() {
   const payload = await getPayload({ config })

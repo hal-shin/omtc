@@ -1,6 +1,17 @@
 import React from 'react'
+import type { Metadata } from 'next'
 import { getPayload } from 'payload'
 import config from '@payload-config'
+
+export const metadata: Metadata = {
+  title: 'Tournaments',
+  description:
+    '2026 tournament schedule at OK Mission Tennis Club — Ice Breaker, Junior, Rookie Tour, Mid Summer, and Club Championships in Kelowna, BC.',
+  openGraph: {
+    title: 'Tournaments | OK Mission Tennis Club',
+    description: '2026 tournament schedule at OK Mission Tennis Club.',
+  },
+}
 
 function formatDate(dateStr: string): string {
   return new Date(dateStr).toLocaleDateString('en-CA', {

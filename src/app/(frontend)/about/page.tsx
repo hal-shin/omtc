@@ -1,7 +1,19 @@
 import React from 'react'
+import type { Metadata } from 'next'
 import { getPayload } from 'payload'
 import config from '@payload-config'
 import { RichText } from '@payloadcms/richtext-lexical/react'
+
+export const metadata: Metadata = {
+  title: 'About',
+  description:
+    'Learn about OK Mission Tennis Club — over 100 years of tennis in Kelowna, BC. 6 outdoor courts, charity-run, part of the Okanagan Mission Community Hall Association.',
+  openGraph: {
+    title: 'About | OK Mission Tennis Club',
+    description:
+      'Learn about OK Mission Tennis Club — over 100 years of tennis in Kelowna, BC.',
+  },
+}
 
 export default async function AboutPage() {
   const payload = await getPayload({ config })

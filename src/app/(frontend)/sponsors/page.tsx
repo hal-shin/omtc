@@ -1,7 +1,18 @@
 import React from 'react'
+import type { Metadata } from 'next'
 import Image from 'next/image'
 import { getPayload } from 'payload'
 import config from '@payload-config'
+
+export const metadata: Metadata = {
+  title: 'Sponsors',
+  description:
+    'Thank you to our sponsors at OK Mission Tennis Club. Interested in sponsorship? Contact us for opportunities.',
+  openGraph: {
+    title: 'Sponsors | OK Mission Tennis Club',
+    description: 'Our generous sponsors who make our programs possible.',
+  },
+}
 
 const tierOrder = ['platinum', 'gold', 'silver', 'supporter'] as const
 const tierStyles: Record<string, { badge: string; border: string }> = {

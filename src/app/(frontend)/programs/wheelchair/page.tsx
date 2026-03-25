@@ -1,7 +1,18 @@
 import React from 'react'
+import type { Metadata } from 'next'
 import { getPayload } from 'payload'
 import config from '@payload-config'
 import { RichText } from '@payloadcms/richtext-lexical/react'
+
+export const metadata: Metadata = {
+  title: 'Wheelchair Tennis',
+  description:
+    'Wheelchair Tennis at OK Mission Tennis Club — open to all abilities, inclusive tennis program in Kelowna, BC.',
+  openGraph: {
+    title: 'Wheelchair Tennis | OK Mission Tennis Club',
+    description: 'Open to all abilities — inclusive wheelchair tennis program.',
+  },
+}
 
 export default async function WheelchairPage() {
   const payload = await getPayload({ config })

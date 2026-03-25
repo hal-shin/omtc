@@ -1,7 +1,18 @@
 import React from 'react'
+import type { Metadata } from 'next'
 import { getPayload } from 'payload'
 import config from '@payload-config'
 import { RichText } from '@payloadcms/richtext-lexical/react'
+
+export const metadata: Metadata = {
+  title: 'Kids Tennis',
+  description:
+    'Kids tennis lessons at OK Mission Tennis Club — La Petite, Red Ball, Orange Ball, Green Dot, and Regular Ball programs for ages 3-11+ in Kelowna, BC.',
+  openGraph: {
+    title: 'Kids Tennis | OK Mission Tennis Club',
+    description: 'Progressive kids tennis lessons for ages 3-11+.',
+  },
+}
 
 const ballProgression = [
   { name: 'La Petite', color: 'bg-pink-100 text-pink-800 border-pink-200' },

@@ -1,9 +1,21 @@
 import React from 'react'
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
 import { getPayload } from 'payload'
 import config from '@payload-config'
 import { RichText } from '@payloadcms/richtext-lexical/react'
+
+export const metadata: Metadata = {
+  title: 'Home | OK Mission Tennis Club',
+  description:
+    'OK Mission Tennis Club — 6 outdoor courts in Kelowna, BC. Kids, adult, girls, and wheelchair tennis programs. Book a court, view tournaments, and more.',
+  openGraph: {
+    title: 'OK Mission Tennis Club',
+    description:
+      'OK Mission Tennis Club — 6 outdoor courts in Kelowna, BC. Kids, adult, girls, and wheelchair tennis programs.',
+  },
+}
 
 export default async function HomePage() {
   const payload = await getPayload({ config })

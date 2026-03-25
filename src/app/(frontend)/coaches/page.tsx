@@ -1,7 +1,18 @@
 import React from 'react'
+import type { Metadata } from 'next'
 import { getPayload } from 'payload'
 import config from '@payload-config'
 import { CoachCard } from './CoachCard'
+
+export const metadata: Metadata = {
+  title: 'Coaches',
+  description:
+    'Meet the coaching team at OK Mission Tennis Club — experienced pros offering group and private tennis lessons in Kelowna, BC.',
+  openGraph: {
+    title: 'Coaches | OK Mission Tennis Club',
+    description: 'Meet our experienced coaching team.',
+  },
+}
 
 export default async function CoachesPage() {
   const payload = await getPayload({ config })

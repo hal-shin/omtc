@@ -1,5 +1,16 @@
 import React from 'react'
+import type { Metadata } from 'next'
 import Link from 'next/link'
+
+export const metadata: Metadata = {
+  title: 'Programs',
+  description:
+    'Tennis programs at OK Mission Tennis Club — kids, girls in tennis, wheelchair tennis, and adult lessons for all skill levels in Kelowna, BC.',
+  openGraph: {
+    title: 'Programs | OK Mission Tennis Club',
+    description: 'Tennis programs for kids, girls, wheelchair, and adult players.',
+  },
+}
 
 const categories = [
   {
