@@ -9,6 +9,11 @@ Started: Tue 24 Mar 2026 20:49:25 PDT
 - PayloadCMS collections go in `src/collections/`, globals go in `src/globals/`
 - Use `@/*` path alias for imports from `src/`
 - Use `@payload-config` path alias for payload config import
+- Seed script uses `tsx` to run TypeScript directly with path alias support (`pnpm seed`)
+- `data/` directory must exist before SQLite can connect — seed or dev server creates the DB file
+- PayloadCMS richText (Lexical) format: `{ root: { type: 'root', children: [{ type: 'paragraph', children: [{ type: 'text', text, version: 1 }], direction: 'ltr', format: '', indent: 0, version: 1 }], direction: 'ltr', format: '', indent: 0, version: 1 } }`
+- Media uploads via Local API need `file: { data: Buffer, name, mimetype, size }` — use `fs.readFileSync`
+- Make seed functions idempotent by checking for existing records before creating (query by unique field like `alt` or `title`)
 
 ---
 
@@ -57,4 +62,19 @@ Started: Tue 24 Mar 2026 20:49:25 PDT
 - **Learnings for future iterations:**
   - Prefix sort field with `-` for descending order (e.g., `-priority` for highest priority first)
   - Confirmed: no import map regeneration needed when only adding collections
+---
+
+## 2026-03-24 - US-005
+- Created seed script (`src/seed.ts`) with idempotent seeding for media, site settings, and announcements
+- Uploaded logo.jpg, apple-app-store-badge.png, google-play-badge.png to media collection
+- Populated siteSettings global with all club info, aboutText, volunteerText from site-report.md
+- Created two announcements: "Memberships for 2026 are Sold Out" and "Spring programs are live for registration"
+- Added `pnpm seed` command using `tsx` to run TypeScript seed script
+- Added `tsx` as dev dependency
+- Files changed: src/seed.ts (new), package.json
+- **Learnings for future iterations:**
+  - `payload run` swallows stdout — use `tsx` directly for seed scripts that need console output
+  - `data/` directory must exist before SQLite adapter can connect
+  - Lexical richText format requires specific structure with `version: 1` on text nodes
+  - Export `seed()` function for composition — future seed files can import and extend
 ---

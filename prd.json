@@ -79,7 +79,7 @@
         "Typecheck passes"
       ],
       "priority": 5,
-      "passes": false,
+      "passes": true,
       "notes": "Reference site-report.md for exact content. Images are in the assets/ directory."
     },
     {
