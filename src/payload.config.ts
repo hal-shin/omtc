@@ -9,6 +9,9 @@ import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 import { Coaches } from './collections/Coaches'
 import { Programs } from './collections/Programs'
+import { Tournaments } from './collections/Tournaments'
+import { Sponsors } from './collections/Sponsors'
+import { Announcements } from './collections/Announcements'
 import { SiteSettings } from './globals/SiteSettings'
 
 const filename = fileURLToPath(import.meta.url)
@@ -21,7 +24,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Coaches, Programs],
+  collections: [Users, Media, Coaches, Programs, Tournaments, Sponsors, Announcements],
   globals: [SiteSettings],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || 'dev-secret-change-me-in-production',
