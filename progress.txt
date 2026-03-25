@@ -181,3 +181,13 @@ Started: Tue 24 Mar 2026 20:49:25 PDT
   - Programs index is static (no CMS data) — just links to sub-pages
   - Schedule entries have per-session registrationUrl — each Register button links to its own LoveMyClub event
 ---
+
+## 2026-03-24 - US-013
+- Created Girls In Tennis page at /programs/girls with Coach Lily Clerf highlight, U10 and U16 sessions
+- Created Wheelchair Tennis page at /programs/wheelchair with equipment contact info for Lily Clerf
+- Created Adult Lessons page at /programs/adults with NTRP skill level guide and 4 level programs
+- All pages follow same card layout pattern as kids page with policy notes
+- Files changed: src/app/(frontend)/programs/girls/page.tsx (new), src/app/(frontend)/programs/wheelchair/page.tsx (new), src/app/(frontend)/programs/adults/page.tsx (new)
+- **Learnings for future iterations:**
+  - Program pages are very similar — could be refactored into a shared component, but keeping separate for now since each has unique elements (coach highlight, equipment note, NTRP guide)
+---
