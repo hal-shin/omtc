@@ -1,0 +1,330 @@
+{
+  "project": "OK Mission Tennis Club Website",
+  "branchName": "ralph/omtc-website",
+  "description": "Modern brochure website for OK Mission Tennis Club built on PayloadCMS + Next.js, replacing the existing LoveMyClub-hosted site while keeping LoveMyClub as a sidecar for bookings and membership.",
+  "userStories": [
+    {
+      "id": "US-001",
+      "title": "Scaffold Next.js + PayloadCMS project",
+      "description": "As a developer, I want to scaffold the project foundation so that all subsequent work has a working base.",
+      "acceptanceCriteria": [
+        "Next.js 15 App Router project created with PayloadCMS 3.x embedded (use create-payload-app or manual setup)",
+        "SQLite database configured via @payloadcms/db-sqlite",
+        "PayloadCMS admin panel accessible at /admin",
+        "Tailwind CSS 4 configured and working",
+        "pnpm dev starts the dev server without errors",
+        "pnpm build completes successfully",
+        "Typecheck passes"
+      ],
+      "priority": 1,
+      "passes": false,
+      "notes": "Use pnpm as package manager. The project root is the current directory."
+    },
+    {
+      "id": "US-002",
+      "title": "Define media collection and siteSettings global",
+      "description": "As a developer, I need the media upload collection and site-wide settings so other collections can reference them.",
+      "acceptanceCriteria": [
+        "media collection configured for image uploads with alt text field",
+        "siteSettings global with fields: clubName (text), address (text), phone (text), email (text), aboutText (richText), volunteerText (richText), heroImage (upload to media), logo (upload to media), lovemyclubBaseUrl (text), appStoreUrl (text), playStoreUrl (text)",
+        "Admin panel shows media uploads and site settings sections",
+        "Typecheck passes"
+      ],
+      "priority": 2,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-003",
+      "title": "Define coaches and programs collections",
+      "description": "As a developer, I need CMS collections for coaches and programs so admins can manage lesson offerings and staff.",
+      "acceptanceCriteria": [
+        "coaches collection with fields: name (text, required), role (text), email (text), phone (text), photo (upload to media), rates (richText), qualifications (array of text), bio (richText), sortOrder (number, default 0)",
+        "programs collection with fields: name (text, required), slug (text, unique), ageRange (text), description (richText), schedule (array with fields: day and time), registrationUrl (text for LoveMyClub link), category (select: kids | girls | wheelchair | adult), season (text), year (number)",
+        "Both collections visible and editable in admin panel",
+        "Typecheck passes"
+      ],
+      "priority": 3,
+      "passes": false,
+      "notes": "Coaches should be sorted by sortOrder in queries. Programs should be filterable by category."
+    },
+    {
+      "id": "US-004",
+      "title": "Define tournaments, sponsors, and announcements collections",
+      "description": "As a developer, I need CMS collections for tournaments, sponsors, and announcements.",
+      "acceptanceCriteria": [
+        "tournaments collection with fields: name (text, required), startDate (date), endDate (date), description (richText), registrationUrl (text), registrationDeadline (date), sanctionedBy (text, optional), year (number)",
+        "sponsors collection with fields: name (text, required), tier (select: platinum | gold | silver | supporter), logo (upload to media, optional), website (text, optional), sortOrder (number, default 0)",
+        "announcements collection with fields: title (text, required), body (richText), active (checkbox, default true), priority (number, default 0), startDate (date), endDate (date)",
+        "All collections visible and editable in admin panel",
+        "Typecheck passes"
+      ],
+      "priority": 4,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-005",
+      "title": "Seed site settings, media, and announcements",
+      "description": "As a developer, I want base site data pre-loaded so the site launches with correct club info.",
+      "acceptanceCriteria": [
+        "Seed script runnable via pnpm seed",
+        "Logo image (from assets/logo.jpg) uploaded to media collection",
+        "App store badge images (from assets/) uploaded to media collection",
+        "siteSettings populated: clubName='OK Mission Tennis Club', address='4409 Lakeshore Road, Kelowna, BC V1W 1W7, Canada', phone='250-764-7477', email='info@okmissiontennis.org', lovemyclubBaseUrl='https://www.okmissiontennis.org', appStoreUrl='https://apps.apple.com/ca/app/love-our-club/id1120427940', playStoreUrl='https://play.google.com/store/apps/details?id=com.epicware.loveourclubmobile&hl=en_US&gl=US'",
+        "aboutText populated with club history content from site-report.md (6 courts, 100+ years, charity-run, part of Okanagan Mission Community Hall Association)",
+        "volunteerText populated with volunteer/donate content from site-report.md",
+        "Two announcements created: 'Memberships for 2026 are Sold Out' and 'Spring programs are live for registration'",
+        "Seed script is idempotent (can run multiple times without duplicating)",
+        "Typecheck passes"
+      ],
+      "priority": 5,
+      "passes": false,
+      "notes": "Reference site-report.md for exact content. Images are in the assets/ directory."
+    },
+    {
+      "id": "US-006",
+      "title": "Seed coaches data",
+      "description": "As a developer, I want all 4 coaches pre-loaded with photos, bios, rates, and qualifications.",
+      "acceptanceCriteria": [
+        "Coach photos uploaded to media collection from assets/ (coach-uri-yarkoni.jpg, coach-johnny-v.jpeg, coach-mike-mulholland.jpg, coach-lily-clerf.jpeg)",
+        "Uri Yarkoni created: Head Pro, Director of Adult Programming, uriytennis@gmail.com, 250-212-3206, full bio/rates/qualifications from site-report.md, sortOrder 1",
+        "Johnny V created: Director of Kids Programming, coach@johnnyv.ca, 250-808-8378, full bio/rates/qualifications from site-report.md, sortOrder 2",
+        "Mike Mulholland created: Assistant Kids and Adult Program Coach, mmulholland87@gmail.com, 250-300-4199, full bio/rates/qualifications from site-report.md, sortOrder 3",
+        "Lily Clerf created: Girls in Tennis and Assistant Coach, lilyclerf@gmail.com, 250-808-8302, full bio/rates/qualifications from site-report.md, sortOrder 4",
+        "Seed integrates with existing seed script (pnpm seed runs all seeds)",
+        "Typecheck passes"
+      ],
+      "priority": 6,
+      "passes": false,
+      "notes": "All coach data is in site-report.md Section 5. Photos are in assets/ directory."
+    },
+    {
+      "id": "US-007",
+      "title": "Seed programs, tournaments, and sponsors",
+      "description": "As a developer, I want all programs, tournaments, and sponsors pre-loaded from the old site content.",
+      "acceptanceCriteria": [
+        "Kids programs created: La Petite (3-5yo), Red Ball (5-7yo), Orange Ball (7-9yo), Green Dot (9-10yo), Regular Ball (11+) — each with description, schedule, and LoveMyClub registration URLs from site-report.md",
+        "Girls In Tennis program created with U10 and U16 sessions, registration URLs",
+        "Wheelchair Tennis program created with Friday 4pm schedule, registration URL",
+        "Adult Lessons created: Beginner (1.0), Advanced Beginner (1.5-2.0), Intermediate (2.5-3.0), Advanced Intermediate (3.5+) — each with schedule and registration URLs",
+        "All 6 tournaments for 2026 created: Ice Breaker (Apr 11), 2 Star Junior (May 23-24), Rookie Tour (Jun 20), Mid Summer Singles (Jul 3-5), Mid Summer Doubles (Aug 14-16), Club Championships (Sep 18-20)",
+        "All 8 sponsors created: Thomas Alan Budd Foundations (platinum), Core Chiropractic (gold), Farming Karma, Cedar Creek Estate Winery, The Beer Institute, Tim Hortons, It's A Bakery, Prosign",
+        "Seed integrates with existing seed script",
+        "Typecheck passes"
+      ],
+      "priority": 7,
+      "passes": false,
+      "notes": "All data is in site-report.md sections 3.2-3.7. Registration URLs are full LoveMyClub URLs with GUIDs."
+    },
+    {
+      "id": "US-008",
+      "title": "Site header with navigation",
+      "description": "As a visitor, I want a clear header with navigation so I can browse the site easily.",
+      "acceptanceCriteria": [
+        "Responsive header component with club logo (from siteSettings)",
+        "Navigation links: Home, About, Programs (dropdown with Kids/Girls In Tennis/Wheelchair Tennis/Adults), Coaches, Tournaments, Sponsors, Contact",
+        "Programs dropdown shows sub-links on hover (desktop) and tap (mobile)",
+        "Prominent 'Book a Court' CTA button linking to LoveMyClub base URL + /ClubMember/BookingCalendar (opens new tab, rel=noopener)",
+        "'Member Login' link linking to LoveMyClub login (opens new tab)",
+        "Header is sticky/fixed on scroll",
+        "Mobile hamburger menu that toggles navigation",
+        "Typecheck passes",
+        "Verify in browser using dev-browser skill"
+      ],
+      "priority": 8,
+      "passes": false,
+      "notes": "Color palette: derive from logo (green/blue). Use Tailwind. Family-friendly, clean, slightly professional tone."
+    },
+    {
+      "id": "US-009",
+      "title": "Site footer",
+      "description": "As a visitor, I want a footer with contact info and useful links.",
+      "acceptanceCriteria": [
+        "Footer component with club address, phone (tel: link), email (mailto: link) from siteSettings",
+        "App store badges with links to LoveOurClub app (Apple Store + Google Play) from siteSettings",
+        "Navigation links mirroring header nav",
+        "Copyright line: current year + club name",
+        "Footer is included on all pages via the root layout",
+        "Typecheck passes",
+        "Verify in browser using dev-browser skill"
+      ],
+      "priority": 9,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-010",
+      "title": "Home page",
+      "description": "As a visitor, I want an engaging home page that gives me an overview of the club.",
+      "acceptanceCriteria": [
+        "Home page route at / (app/page.tsx or app/(frontend)/page.tsx)",
+        "Hero section with club logo and tagline about the club",
+        "Active announcements section showing announcements where active=true and current date is between startDate and endDate, ordered by priority",
+        "About summary section: '6 outdoor courts', '100+ year history', 'charity-run', 'part of Okanagan Mission Community Hall Association'",
+        "Quick links cards to Programs, Coaches, Tournaments pages",
+        "'Book a Court' CTA card linking to LoveMyClub (new tab)",
+        "Volunteer/Donate section with content from siteSettings.volunteerText",
+        "Typecheck passes",
+        "Verify in browser using dev-browser skill"
+      ],
+      "priority": 10,
+      "passes": false,
+      "notes": "Content should come from siteSettings global and announcements collection. Design: clean, modern, family-friendly."
+    },
+    {
+      "id": "US-011",
+      "title": "About page",
+      "description": "As a visitor, I want to learn about the club's history and how to get involved.",
+      "acceptanceCriteria": [
+        "About page route at /about",
+        "Club history section rendered from siteSettings.aboutText",
+        "Facility details: 6 outdoor courts at 4409 Lakeshore Road",
+        "Parent organization: Okanagan Mission Community Hall Association",
+        "Volunteer section rendered from siteSettings.volunteerText with areas: food prep/cleanup, special skills, fundraising ideas",
+        "Donation CTA noting charitable receipts are available",
+        "Typecheck passes",
+        "Verify in browser using dev-browser skill"
+      ],
+      "priority": 11,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-012",
+      "title": "Programs index and kids lessons page",
+      "description": "As a visitor, I want to see all program categories and browse kids tennis lessons.",
+      "acceptanceCriteria": [
+        "Programs index page at /programs showing all 4 categories (kids, girls, wheelchair, adult) as cards with brief descriptions and links to sub-pages",
+        "Kids lessons page at /programs/kids showing all kids programs from CMS filtered by category='kids'",
+        "Each program displayed as a card: name, age range, description, schedule (day + time for each session)",
+        "Each session has a 'Register' button linking to its registrationUrl (opens new tab, rel=noopener)",
+        "Progressive ball system visually clear: La Petite → Red Ball → Orange Ball → Green Dot → Regular Ball",
+        "Note for advanced juniors: contact Uri at uriytennis@gmail.com",
+        "Policy notes displayed: 'All lessons are non refundable', 'Register and pay online — no cash or cheques'",
+        "Typecheck passes",
+        "Verify in browser using dev-browser skill"
+      ],
+      "priority": 12,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-013",
+      "title": "Girls In Tennis, Wheelchair Tennis, and Adult Lessons pages",
+      "description": "As a visitor, I want to browse the remaining program categories.",
+      "acceptanceCriteria": [
+        "Girls In Tennis page at /programs/girls showing programs filtered by category='girls', highlighting Coach Lily Clerf and 'led by girls for girls' mission, U10 and U16 sessions with register links",
+        "Wheelchair Tennis page at /programs/wheelchair showing programs filtered by category='wheelchair', noting 'open to all abilities', equipment contact info for Lily Clerf (lilyclerf@gmail.com)",
+        "Adult Lessons page at /programs/adults showing programs filtered by category='adult', displaying NTRP skill levels (1.0 through 3.5+) with register links",
+        "All pages follow the same card layout pattern as the kids page",
+        "Policy notes on each page: non-refundable, online payment only",
+        "Typecheck passes",
+        "Verify in browser using dev-browser skill"
+      ],
+      "priority": 13,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-014",
+      "title": "Coaches page",
+      "description": "As a visitor, I want to see coach profiles with photos, bios, and rates.",
+      "acceptanceCriteria": [
+        "Coaches page at /coaches",
+        "Note at top: 'Group lessons are club organized. All private lessons are booked through coaches directly.'",
+        "Grid/card layout showing all coaches ordered by sortOrder",
+        "Each coach card shows: photo (from media upload), name, role/title, bio excerpt (first ~100 chars)",
+        "Expandable section or detail view showing: full bio, qualifications list, rates table, email (mailto link), phone (tel link)",
+        "Coach data fetched from CMS coaches collection",
+        "Typecheck passes",
+        "Verify in browser using dev-browser skill"
+      ],
+      "priority": 14,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-015",
+      "title": "Tournaments page",
+      "description": "As a visitor, I want to see the tournament schedule and register for events.",
+      "acceptanceCriteria": [
+        "Tournaments page at /tournaments",
+        "Tournament list showing all tournaments for 2026 from CMS, ordered by startDate",
+        "Each tournament shows: name, date range (formatted nicely), registration deadline if present, 'Tennis BC Sanctioned' badge where sanctionedBy is set",
+        "'Register' button shown when registrationUrl is present, linking to LoveMyClub (new tab)",
+        "Contact info for tournament questions: Head Pro Uri Yarkoni at uriytennis@gmail.com",
+        "Typecheck passes",
+        "Verify in browser using dev-browser skill"
+      ],
+      "priority": 15,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-016",
+      "title": "Sponsors page",
+      "description": "As a visitor or potential sponsor, I want to see current sponsors and inquire about sponsorship.",
+      "acceptanceCriteria": [
+        "Sponsors page at /sponsors",
+        "Sponsors grouped and displayed by tier: Platinum first, then Gold, then others",
+        "Each sponsor shows: name, tier badge/label, logo if available",
+        "Sponsorship inquiry section with contact: Alli, McNeill Communications, 250.212.4831, alli@mcneillcommunications.ca",
+        "Sponsor data fetched from CMS sponsors collection ordered by tier priority then sortOrder",
+        "Typecheck passes",
+        "Verify in browser using dev-browser skill"
+      ],
+      "priority": 16,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-017",
+      "title": "Contact page",
+      "description": "As a visitor, I want to find the club's contact info and location.",
+      "acceptanceCriteria": [
+        "Contact page at /contact",
+        "Contact details from siteSettings: phone (tel link), email (mailto link), address",
+        "Embedded Google Map or static map showing correct Kelowna coordinates (~49.8547, -119.4920) for 4409 Lakeshore Road — use iframe embed (no API key needed) or static image",
+        "App store badges with links to LoveOurClub app from siteSettings",
+        "Typecheck passes",
+        "Verify in browser using dev-browser skill"
+      ],
+      "priority": 17,
+      "passes": false,
+      "notes": "The old site had broken map coordinates pointing to Germany. Must use correct Kelowna, BC coordinates."
+    },
+    {
+      "id": "US-018",
+      "title": "SEO metadata and sitemap",
+      "description": "As a club admin, I want the site to be discoverable via search engines.",
+      "acceptanceCriteria": [
+        "Each page has a meta title and description set via Next.js metadata API",
+        "Open Graph tags (og:title, og:description, og:image) on all pages",
+        "Sitemap.xml auto-generated at /sitemap.xml listing all public pages",
+        "robots.txt at /robots.txt allowing all crawlers, pointing to sitemap",
+        "Semantic HTML used throughout: proper heading hierarchy (h1-h6), nav/main/footer landmarks, alt text on images",
+        "Typecheck passes"
+      ],
+      "priority": 18,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-019",
+      "title": "Mobile responsiveness polish",
+      "description": "As a mobile visitor, I want the site to work well on my phone.",
+      "acceptanceCriteria": [
+        "All pages render correctly from 320px to 768px width without horizontal scroll",
+        "Touch-friendly tap targets (minimum 44px)",
+        "Hamburger menu works smoothly on mobile",
+        "Images use Next.js Image component for responsive sizing and optimization",
+        "Cards stack vertically on mobile, grid on desktop",
+        "Verify in browser using dev-browser skill (emulate mobile viewport)"
+      ],
+      "priority": 19,
+      "passes": false,
+      "notes": "This is a polish pass — basic responsiveness should already exist from Tailwind usage in prior stories."
+    }
+  ]
+}
