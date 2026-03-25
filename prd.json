@@ -291,7 +291,7 @@
         "Verify in browser using dev-browser skill"
       ],
       "priority": 17,
-      "passes": false,
+      "passes": true,
       "notes": "The old site had broken map coordinates pointing to Germany. Must use correct Kelowna, BC coordinates."
     },
     {
