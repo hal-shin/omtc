@@ -96,7 +96,7 @@
         "Typecheck passes"
       ],
       "priority": 6,
-      "passes": false,
+      "passes": true,
       "notes": "All coach data is in site-report.md Section 5. Photos are in assets/ directory."
     },
     {
