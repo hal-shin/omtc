@@ -21,6 +21,7 @@ Started: Tue 24 Mar 2026 20:49:25 PDT
 - Use `lg:` breakpoint to toggle between mobile and desktop nav layouts
 - App store badge images are in media collection (not linked to siteSettings) — query by alt text: `payload.find({ collection: 'media', where: { alt: { equals: '...' } } })`
 - Server components (no 'use client') preferred when no interactive state needed — Footer is a server component, Header is a client component
+- For interactive components (expand/collapse), use server page + client child component pattern — server fetches data, passes serializable props
 - Use `RichText` component from `@payloadcms/richtext-lexical/react` to render Lexical rich text content
 - Pages fetch data via `getPayload({ config })` as async server components — no need for API routes
 
@@ -190,4 +191,16 @@ Started: Tue 24 Mar 2026 20:49:25 PDT
 - Files changed: src/app/(frontend)/programs/girls/page.tsx (new), src/app/(frontend)/programs/wheelchair/page.tsx (new), src/app/(frontend)/programs/adults/page.tsx (new)
 - **Learnings for future iterations:**
   - Program pages are very similar — could be refactored into a shared component, but keeping separate for now since each has unique elements (coach highlight, equipment note, NTRP guide)
+---
+
+## 2026-03-24 - US-014
+- Created Coaches page at /coaches with grid layout of 4 coach cards ordered by sortOrder
+- CoachCard is a client component with expandable section showing full bio, qualifications, rates, and contact
+- Server page component fetches data and passes serializable props to client CoachCard
+- Note at top about group vs private lessons
+- Files changed: src/app/(frontend)/coaches/page.tsx (new), src/app/(frontend)/coaches/CoachCard.tsx (new)
+- **Learnings for future iterations:**
+  - For interactive UI (expand/collapse), split into server page + client card component pattern
+  - Media relations need `depth: 1` to get full photo objects (url, alt) instead of just IDs
+  - Manual Lexical richText rendering: traverse `root.children[].children[].text` for plain text extraction
 ---
