@@ -2,7 +2,7 @@ services:
   web:
     build: .
     ports:
-      - "3000:3000"
+      - "3661:3000"
     environment:
       - DATABASE_URL=file:/app/data/payload.db
       - PAYLOAD_SECRET=${PAYLOAD_SECRET:?Set PAYLOAD_SECRET in .env}
