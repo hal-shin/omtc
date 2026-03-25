@@ -6,7 +6,7 @@ Started: Tue 24 Mar 2026 20:49:25 PDT
 - PayloadCMS admin importMap is auto-generated via `pnpm generate:importmap` — do NOT edit `src/app/(payload)/admin/importMap.js` manually
 - SQLite database stored at `data/payload.db` (gitignored)
 - Tailwind CSS 4 uses `@import 'tailwindcss'` in CSS (no tailwind.config.js needed), configured via `postcss.config.mjs` with `@tailwindcss/postcss`
-- PayloadCMS collections go in `src/collections/`
+- PayloadCMS collections go in `src/collections/`, globals go in `src/globals/`
 - Use `@/*` path alias for imports from `src/`
 - Use `@payload-config` path alias for payload config import
 
@@ -21,4 +21,15 @@ Started: Tue 24 Mar 2026 20:49:25 PDT
   - SQLite adapter uses `@libsql/client` Config type: `{ client: { url: 'file:./data/payload.db' } }`
   - Each route group `(frontend)` and `(payload)` has its own `layout.tsx` with `<html>`/`<body>` — no root layout needed
   - Must run `pnpm generate:importmap` after changing payload config before build
+---
+
+## 2026-03-24 - US-002
+- Created siteSettings global with all required fields: clubName, address, phone, email, aboutText (richText), volunteerText (richText), heroImage, logo, lovemyclubBaseUrl, appStoreUrl, playStoreUrl
+- Media collection already existed from US-001 with alt text field — no changes needed
+- Registered SiteSettings global in payload.config.ts
+- Files changed: src/globals/SiteSettings.ts (new), src/payload.config.ts
+- **Learnings for future iterations:**
+  - PayloadCMS globals use `GlobalConfig` type from `payload`, registered via `globals` array in buildConfig
+  - Global slug uses kebab-case (`site-settings`) — this becomes the API endpoint and admin URL
+  - Always run `pnpm generate:importmap` after modifying payload config
 ---
