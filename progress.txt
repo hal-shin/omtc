@@ -158,3 +158,14 @@ Started: Tue 24 Mar 2026 20:49:25 PDT
   - PayloadCMS `where` queries support `or` conditions for complex filters
   - Announcements need client-side date filtering since PayloadCMS OR logic makes combined date range + active queries awkward
 ---
+
+## 2026-03-24 - US-011
+- Created About page at /about with history, facility, organization, volunteer/donate sections
+- Rich text content rendered from siteSettings.aboutText and volunteerText
+- Volunteer areas highlighted in a card with bullet points
+- Donation CTA notes charitable receipts are available
+- Files changed: src/app/(frontend)/about/page.tsx (new)
+- **Learnings for future iterations:**
+  - Page pattern established: gradient header section + content sections, each page fetches its own data via getPayload
+  - `prose prose-emerald` Tailwind class works well for rendering rich text content
+---
