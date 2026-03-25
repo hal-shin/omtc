@@ -58,7 +58,7 @@ export function CoachCard({ coach }: { coach: CoachData }) {
   return (
     <div className="overflow-hidden rounded-xl border border-gray-100 bg-white shadow-sm">
       <div className="p-6">
-        <div className="flex gap-4">
+        <div className="flex flex-col items-center gap-3 sm:flex-row sm:items-start sm:gap-4">
           {coach.photo?.url && (
             <Image
               src={coach.photo.url}
@@ -68,7 +68,7 @@ export function CoachCard({ coach }: { coach: CoachData }) {
               className="h-24 w-24 flex-shrink-0 rounded-full object-cover"
             />
           )}
-          <div className="min-w-0">
+          <div className="min-w-0 text-center sm:text-left">
             <h3 className="text-lg font-semibold text-gray-900">{coach.name}</h3>
             {coach.role && (
               <p className="text-sm font-medium text-emerald-700">{coach.role}</p>

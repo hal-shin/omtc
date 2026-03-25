@@ -85,7 +85,7 @@ export default async function TournamentsPage() {
                       href={t.registrationUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-block rounded-lg bg-emerald-600 px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-emerald-700"
+                      className="inline-block rounded-lg bg-emerald-600 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-emerald-700"
                     >
                       Register
                     </a>

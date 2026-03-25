@@ -76,7 +76,7 @@ export default async function WheelchairPage() {
                               href={session.registrationUrl}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="rounded-lg bg-emerald-600 px-4 py-1.5 text-sm font-medium text-white transition-colors hover:bg-emerald-700"
+                              className="rounded-lg bg-emerald-600 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-emerald-700"
                             >
                               Register
                             </a>
