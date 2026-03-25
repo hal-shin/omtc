@@ -32,4 +32,18 @@ Started: Tue 24 Mar 2026 20:49:25 PDT
   - PayloadCMS globals use `GlobalConfig` type from `payload`, registered via `globals` array in buildConfig
   - Global slug uses kebab-case (`site-settings`) — this becomes the API endpoint and admin URL
   - Always run `pnpm generate:importmap` after modifying payload config
+- PayloadCMS collections use `admin.useAsTitle` to set which field displays as the title in the admin list view
+- Use `defaultSort` on collections to set default query ordering (e.g., `defaultSort: 'sortOrder'`)
+- `select` field options use `{ label, value }` format
+---
+
+## 2026-03-24 - US-003
+- Created coaches collection with: name, role, email, phone, photo, rates (richText), qualifications (array of text), bio (richText), sortOrder (default 0)
+- Created programs collection with: name, slug (unique), ageRange, description (richText), schedule (array: day+time), registrationUrl, category (select: kids|girls|wheelchair|adult), season, year
+- Registered both in payload.config.ts
+- Files changed: src/collections/Coaches.ts (new), src/collections/Programs.ts (new), src/payload.config.ts
+- **Learnings for future iterations:**
+  - Collections with `defaultSort` automatically order queries — no need to manually sort in API calls
+  - Array fields in PayloadCMS need a `fields` array defining sub-fields (e.g., qualifications array has a `qualification` text sub-field)
+  - No import map regeneration needed when only adding new collections (no admin UI component changes)
 ---

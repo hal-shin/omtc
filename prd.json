@@ -45,7 +45,7 @@
         "Typecheck passes"
       ],
       "priority": 3,
-      "passes": false,
+      "passes": true,
       "notes": "Coaches should be sorted by sortOrder in queries. Programs should be filterable by category."
     },
     {
