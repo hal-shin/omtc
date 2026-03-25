@@ -21,6 +21,8 @@ Started: Tue 24 Mar 2026 20:49:25 PDT
 - Use `lg:` breakpoint to toggle between mobile and desktop nav layouts
 - App store badge images are in media collection (not linked to siteSettings) — query by alt text: `payload.find({ collection: 'media', where: { alt: { equals: '...' } } })`
 - Server components (no 'use client') preferred when no interactive state needed — Footer is a server component, Header is a client component
+- Use `RichText` component from `@payloadcms/richtext-lexical/react` to render Lexical rich text content
+- Pages fetch data via `getPayload({ config })` as async server components — no need for API routes
 
 ---
 
@@ -141,4 +143,18 @@ Started: Tue 24 Mar 2026 20:49:25 PDT
   - App store badge images are in media collection but not linked to siteSettings fields — query media by alt text to find them
   - Footer doesn't need 'use client' since it has no interactive state — keep it as a server component for simplicity
   - Pattern: query media collection with `where: { alt: { equals: '...' } }` to find specific uploaded images
+---
+
+## 2026-03-24 - US-010
+- Built home page with hero, announcements, about summary, quick links, and volunteer/donate sections
+- Hero has club logo, tagline, and Book a Court / View Programs CTAs
+- Announcements filtered by active=true and date range, ordered by -priority
+- About summary shows 4 key facts as cards (6 courts, 100+ years, charity-run, community)
+- Quick links: Programs, Coaches, Tournaments, Book a Court
+- Volunteer/Donate section renders siteSettings.volunteerText via RichText component
+- Files changed: src/app/(frontend)/page.tsx
+- **Learnings for future iterations:**
+  - `@payloadcms/richtext-lexical/react` exports a `RichText` component that renders Lexical data — pass `data` prop
+  - PayloadCMS `where` queries support `or` conditions for complex filters
+  - Announcements need client-side date filtering since PayloadCMS OR logic makes combined date range + active queries awkward
 ---

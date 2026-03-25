@@ -169,7 +169,7 @@
         "Verify in browser using dev-browser skill"
       ],
       "priority": 10,
-      "passes": false,
+      "passes": true,
       "notes": "Content should come from siteSettings global and announcements collection. Design: clean, modern, family-friendly."
     },
     {
