@@ -47,3 +47,14 @@ Started: Tue 24 Mar 2026 20:49:25 PDT
   - Array fields in PayloadCMS need a `fields` array defining sub-fields (e.g., qualifications array has a `qualification` text sub-field)
   - No import map regeneration needed when only adding new collections (no admin UI component changes)
 ---
+
+## 2026-03-24 - US-004
+- Created tournaments collection with: name (required), startDate, endDate, description (richText), registrationUrl, registrationDeadline, sanctionedBy, year. Default sort by startDate.
+- Created sponsors collection with: name (required), tier (select: platinum|gold|silver|supporter), logo (upload), website, sortOrder (default 0). Default sort by sortOrder.
+- Created announcements collection with: title (required), body (richText), active (checkbox, default true), priority (default 0), startDate, endDate. Default sort by -priority (descending).
+- Registered all three in payload.config.ts
+- Files changed: src/collections/Tournaments.ts (new), src/collections/Sponsors.ts (new), src/collections/Announcements.ts (new), src/payload.config.ts
+- **Learnings for future iterations:**
+  - Prefix sort field with `-` for descending order (e.g., `-priority` for highest priority first)
+  - Confirmed: no import map regeneration needed when only adding collections
+---
