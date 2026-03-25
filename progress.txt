@@ -169,3 +169,15 @@ Started: Tue 24 Mar 2026 20:49:25 PDT
   - Page pattern established: gradient header section + content sections, each page fetches its own data via getPayload
   - `prose prose-emerald` Tailwind class works well for rendering rich text content
 ---
+
+## 2026-03-24 - US-012
+- Created programs index at /programs with 4 category cards linking to sub-pages
+- Created kids lessons page at /programs/kids with progressive ball system visual, program cards with schedules and register buttons
+- Advanced juniors note with Uri's email, policy notes (non-refundable, online payment only)
+- Programs filtered by `category: { equals: 'kids' }` from CMS
+- Files changed: src/app/(frontend)/programs/page.tsx (new), src/app/(frontend)/programs/kids/page.tsx (new)
+- **Learnings for future iterations:**
+  - Program card pattern: name + age range header, RichText description, schedule entries with day/time and Register button
+  - Programs index is static (no CMS data) — just links to sub-pages
+  - Schedule entries have per-session registrationUrl — each Register button links to its own LoveMyClub event
+---
