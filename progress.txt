@@ -19,6 +19,8 @@ Started: Tue 24 Mar 2026 20:49:25 PDT
 - Frontend components go in `src/app/(frontend)/components/` — client components use `'use client'` directive
 - Layout fetches siteSettings server-side via `getPayload({ config })` + `payload.findGlobal()` and passes data as props to client components
 - Use `lg:` breakpoint to toggle between mobile and desktop nav layouts
+- App store badge images are in media collection (not linked to siteSettings) — query by alt text: `payload.find({ collection: 'media', where: { alt: { equals: '...' } } })`
+- Server components (no 'use client') preferred when no interactive state needed — Footer is a server component, Header is a client component
 
 ---
 
@@ -127,4 +129,16 @@ Started: Tue 24 Mar 2026 20:49:25 PDT
   - Use Tailwind `group` + `group-hover:visible` for CSS-only hover dropdowns (no JS needed for desktop)
   - `lg:` breakpoint used to switch between mobile hamburger and desktop nav
   - Media URLs from PayloadCMS come as relative paths (e.g., `/api/media/file/logo.jpg`) — Next.js Image component handles them
+---
+
+## 2026-03-24 - US-009
+- Created Footer component with contact info (tel/mailto links), navigation links, member links, app store badges, and copyright
+- Footer is a server component (no client-side state needed) — simpler than Header
+- Layout fetches app store badge images from media collection by alt text, passes to Footer as props
+- Footer included on all pages via root (frontend) layout
+- Files changed: src/app/(frontend)/components/Footer.tsx (new), src/app/(frontend)/layout.tsx
+- **Learnings for future iterations:**
+  - App store badge images are in media collection but not linked to siteSettings fields — query media by alt text to find them
+  - Footer doesn't need 'use client' since it has no interactive state — keep it as a server component for simplicity
+  - Pattern: query media collection with `where: { alt: { equals: '...' } }` to find specific uploaded images
 ---
