@@ -42,6 +42,10 @@ export const Programs: CollectionConfig = {
           type: 'text',
           required: true,
         },
+        {
+          name: 'registrationUrl',
+          type: 'text',
+        },
       ],
     },
     {
