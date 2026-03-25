@@ -170,12 +170,145 @@ async function seedAnnouncements(payload: Awaited<ReturnType<typeof getPayload>>
   }
 }
 
+async function seedCoaches(payload: Awaited<ReturnType<typeof getPayload>>) {
+  console.log('Seeding coaches...')
+
+  const coaches = [
+    {
+      name: 'Uri Yarkoni',
+      role: 'Head Pro, Director of Adult Programming',
+      email: 'uriytennis@gmail.com',
+      phone: '250-212-3206',
+      photoFile: 'coach-uri-yarkoni.jpg',
+      photoAlt: 'Coach Uri Yarkoni',
+      rates: richText([
+        'Private: $75 member / $85 non-member',
+        '2 Players: $45/member / $55/non-member',
+        '3 Players: $35/member / $45/non-member',
+        'Small Group: $30/member / $40/non-member',
+      ]),
+      qualifications: [
+        'Certified Tennis Professionals of Canada Instructor',
+        'Club Professional 1 (Tennis BC / Tennis Canada)',
+        'Coached at OK Mission Tennis in previous seasons',
+        'Coaching experience with all levels and ages in North Carolina and Israel as well as Kelowna',
+      ],
+      bio: richText([
+        'Uri grew up as a competitive tennis player, always enjoying his time on court. He played NCAA college tennis for 4 years in North Carolina while completing a Business Management degree. Uri really enjoys sharing his knowledge of the game and taking a role in a player\'s development. After spending many years traveling around the world, Uri is very excited about returning to the tennis world and the club!',
+      ]),
+      sortOrder: 1,
+    },
+    {
+      name: 'Johnny V',
+      role: 'Director of Kids Programming',
+      email: 'coach@johnnyv.ca',
+      phone: '250-808-8378',
+      photoFile: 'coach-johnny-v.jpeg',
+      photoAlt: 'Coach Johnny V',
+      rates: richText([
+        'Private: $65 member / $75 non-member',
+        'Semi-Private: $37.50/member / $47.50/non-member',
+        'Small Group: $30/member / $40/non-member',
+      ]),
+      qualifications: [
+        'Certified Tennis Professionals of Canada Instructor',
+        'Bachelor of Education (Phys. Ed. Major) UVIC',
+        'Founder & Commissioner SD23 Elementary School Tennis League',
+      ],
+      bio: richText([
+        'Johnny is a retired school teacher and been coaching and teaching kids and adults in Kelowna for over 30 years. He is passionate about introducing young players to the sport which is evident in his enthusiastic attitude on and off the court. He believes in kids having fun while learning tennis and the importance of nurturing their coordination, agility, balance and technique.',
+      ]),
+      sortOrder: 2,
+    },
+    {
+      name: 'Mike Mulholland',
+      role: 'Assistant Kids and Adult Program Coach',
+      email: 'mmulholland87@gmail.com',
+      phone: '250-300-4199',
+      photoFile: 'coach-mike-mulholland.jpg',
+      photoAlt: 'Coach Mike Mulholland',
+      rates: richText([
+        'Private: $65/member / $75/non-member',
+        '2 Players: $40/member / $50/non-member',
+        '3 Players: $30/member / $40/non-member',
+        'Small Group: $25/member / $35/non-member',
+      ]),
+      qualifications: [
+        'Certified Tennis Professionals of Canada Instructor',
+        'Club Professional 1 (Tennis Canada)',
+        'First Set Provider for young tennis players',
+      ],
+      bio: richText([
+        'Mike is a competitive and passionate player who picked up tennis later in life. He loves seeing others succeed and grow in the sport as he has. Mike draws upon his experience in both tennis other sports, psychology and analytics to provide technical and tactical improvements for your game.',
+      ]),
+      sortOrder: 3,
+    },
+    {
+      name: 'Lily Clerf',
+      role: 'Girls in Tennis and Assistant Coach',
+      email: 'lilyclerf@gmail.com',
+      phone: '250-808-8302',
+      photoFile: 'coach-lily-clerf.jpeg',
+      photoAlt: 'Coach Lily Clerf',
+      rates: richText([
+        'Private: $50/member / $60/non-member',
+        'Semi-Private: $30/member / $40/non-member',
+      ]),
+      qualifications: [
+        'Certified Tennis Professionals of Canada Instructor',
+        'Certified Tennis Canada Wheelchair Instructor',
+      ],
+      bio: richText([
+        'Lily is a passionate and talented tennis player who has competed on the BC junior circuit for over 5 years! She is passionate about growing tennis in the Okanagan, especially with youth and beginners. She was selected to participate in the Inspire Through Sport Program, a leadership program helping girls across Canada become coaches and leaders within tennis.',
+      ]),
+      sortOrder: 4,
+    },
+  ]
+
+  for (const coach of coaches) {
+    const existing = await payload.find({
+      collection: 'coaches',
+      where: { name: { equals: coach.name } },
+      limit: 1,
+    })
+
+    if (existing.docs.length > 0) {
+      console.log(`  Coach "${coach.name}" already exists, skipping`)
+      continue
+    }
+
+    const photoId = await uploadMedia(
+      payload,
+      path.join(assetsDir, coach.photoFile),
+      coach.photoAlt,
+    )
+
+    await payload.create({
+      collection: 'coaches',
+      data: {
+        name: coach.name,
+        role: coach.role,
+        email: coach.email,
+        phone: coach.phone,
+        photo: photoId,
+        rates: coach.rates,
+        qualifications: coach.qualifications.map((q) => ({ qualification: q })),
+        bio: coach.bio,
+        sortOrder: coach.sortOrder,
+      },
+    })
+
+    console.log(`  Created coach: "${coach.name}"`)
+  }
+}
+
 export async function seed() {
   const payload = await getPayload({ config })
 
   console.log('Starting seed...')
   await seedSiteSettings(payload)
   await seedAnnouncements(payload)
+  await seedCoaches(payload)
   console.log('Seed complete!')
 }
 
