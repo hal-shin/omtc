@@ -204,3 +204,12 @@ Started: Tue 24 Mar 2026 20:49:25 PDT
   - Media relations need `depth: 1` to get full photo objects (url, alt) instead of just IDs
   - Manual Lexical richText rendering: traverse `root.children[].children[].text` for plain text extraction
 ---
+
+## 2026-03-24 - US-015
+- Created Tournaments page at /tournaments with all 6 tournaments ordered by startDate
+- Each tournament shows name, date range, registration deadline, Tennis BC Sanctioned badge, Register button
+- Contact info for Uri Yarkoni at bottom
+- Files changed: src/app/(frontend)/tournaments/page.tsx (new)
+- **Learnings for future iterations:**
+  - Date formatting: use `toLocaleDateString('en-CA', { month: 'long', day: 'numeric', year: 'numeric' })` for nice Canadian date format
+---
