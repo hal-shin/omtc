@@ -22,6 +22,7 @@ Started: Tue 24 Mar 2026 20:49:25 PDT
 - App store badge images are in media collection (not linked to siteSettings) — query by alt text: `payload.find({ collection: 'media', where: { alt: { equals: '...' } } })`
 - Server components (no 'use client') preferred when no interactive state needed — Footer is a server component, Header is a client component
 - For interactive components (expand/collapse), use server page + client child component pattern — server fetches data, passes serializable props
+- `sitemap.ts` and `robots.ts` must be at `src/app/` root, NOT inside route groups like `(frontend)`
 - Use `RichText` component from `@payloadcms/richtext-lexical/react` to render Lexical rich text content
 - Pages fetch data via `getPayload({ config })` as async server components — no need for API routes
 
@@ -226,4 +227,17 @@ Started: Tue 24 Mar 2026 20:49:25 PDT
 - Map uses iframe embed with correct Kelowna coordinates (~49.8547, -119.4920) — no API key needed
 - App store badges queried from media collection by alt text (same pattern as footer)
 - Files changed: src/app/(frontend)/contact/page.tsx (new)
+---
+
+## 2026-03-25 - US-018
+- Added metadata exports (title, description, OG tags) to all 11 pages
+- Layout uses `title.template: '%s | OK Mission Tennis Club'` for consistent page titles
+- Created sitemap.ts at app root listing all 11 public pages
+- Created robots.ts at app root allowing all crawlers, disallowing /admin/ and /api/
+- Added `<nav aria-label="Footer navigation">` to footer for semantic HTML
+- All pages already use proper heading hierarchy (h1 per page), nav/main/footer landmarks, and alt text on images
+- Files changed: all page.tsx files, layout.tsx, Footer.tsx, src/app/sitemap.ts (new), src/app/robots.ts (new)
+- **Learnings for future iterations:**
+  - sitemap.ts and robots.ts MUST be at `src/app/` root, NOT inside route groups — route groups prevent them from being served at the correct URL
+  - Next.js metadata `title.template` in layout applies to child pages automatically
 ---
