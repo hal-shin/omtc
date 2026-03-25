@@ -241,3 +241,16 @@ Started: Tue 24 Mar 2026 20:49:25 PDT
   - sitemap.ts and robots.ts MUST be at `src/app/` root, NOT inside route groups — route groups prevent them from being served at the correct URL
   - Next.js metadata `title.template` in layout applies to child pages automatically
 ---
+
+## 2026-03-25 - US-019
+- Mobile responsiveness polish pass across all pages
+- Coach cards: stacked (centered) layout on mobile, side-by-side on sm+ breakpoint
+- Register buttons: increased tap target from py-1.5 to py-2.5 (~44px touch target)
+- Tournament Register button: py-2 → py-2.5 for consistency
+- Verified at 320px and 375px: no horizontal scroll, cards stack vertically, hamburger menu works, footer stacks into single column
+- All images already use Next.js Image component throughout
+- Files changed: CoachCard.tsx, all programs page.tsx files, tournaments/page.tsx
+- **Learnings for future iterations:**
+  - Tailwind `py-2.5` with `text-sm` gives approximately 44px button height — meets minimum touch target
+  - Use `flex-col sm:flex-row` pattern for components that need stacked mobile / side-by-side desktop
+---
