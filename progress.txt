@@ -14,6 +14,8 @@ Started: Tue 24 Mar 2026 20:49:25 PDT
 - PayloadCMS richText (Lexical) format: `{ root: { type: 'root', children: [{ type: 'paragraph', children: [{ type: 'text', text, version: 1 }], direction: 'ltr', format: '', indent: 0, version: 1 }], direction: 'ltr', format: '', indent: 0, version: 1 } }`
 - Media uploads via Local API need `file: { data: Buffer, name, mimetype, size }` — use `fs.readFileSync`
 - Make seed functions idempotent by checking for existing records before creating (query by unique field like `alt` or `title`)
+- Programs schedule array entries have per-entry `registrationUrl` fields (each session links to its own LoveMyClub event)
+- Registration URLs use full HTTPS URLs: `https://www.okmissiontennis.org/ClubMember/ClubEvent?ID={GUID}`
 
 ---
 
@@ -88,4 +90,19 @@ Started: Tue 24 Mar 2026 20:49:25 PDT
   - Qualifications array field needs `{ qualification: value }` objects (matching the sub-field name in the collection schema)
   - Pattern for adding new seed data: define data array, loop with existence check, upload media first, then create document
   - Coach data is all in site-report.md Section 5
+---
+
+## 2026-03-24 - US-007
+- Added seedPrograms, seedTournaments, seedSponsors functions to seed script
+- Added `registrationUrl` field to Programs collection schedule array (each session has its own registration link)
+- Created 12 programs: 5 kids (La Petite, Red Ball, Orange Ball, Green Dot, Regular Ball), 2 girls (U10, U16), 1 wheelchair, 4 adult (Beginner through Advanced Intermediate)
+- Created 6 tournaments for 2026 season with dates, registration URLs, and Tennis BC sanctioning where applicable
+- Created 8 sponsors with correct tiers (1 platinum, 1 gold, 6 supporter)
+- All seed functions are idempotent (check by slug for programs, name for tournaments/sponsors)
+- Files changed: src/seed.ts, src/collections/Programs.ts
+- **Learnings for future iterations:**
+  - Programs schema needed `registrationUrl` per schedule entry since each session has a unique LoveMyClub registration link — this was a schema enhancement over the original design
+  - Sponsors without an explicit tier in the source data are assigned 'supporter' tier
+  - Programs use `slug` for idempotency check (unique field), while tournaments and sponsors use `name`
+  - All registration URLs follow pattern: `https://www.okmissiontennis.org/ClubMember/ClubEvent?ID={GUID}`
 ---
